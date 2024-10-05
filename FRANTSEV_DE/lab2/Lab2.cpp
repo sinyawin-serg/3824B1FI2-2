@@ -27,7 +27,7 @@ int main()
     else if (mode == 2) {
 
         int think = 500, down = 0, up = 1000;
-        int youthink;
+        int youthink, counter = 1;
         char oper[2];
         printf("Загадывайте число: ");
         scanf_s("%d", &youthink);
@@ -35,6 +35,7 @@ int main()
         while (getchar() != '\n');
         if (youthink >= 0 && youthink <= 1000) {
             while (think != youthink) {
+                counter++;
                 printf("Число %d больше, меньше или равно?\n", think);
                 fgets(oper, 2, stdin);
                 while (getchar() != '\n');
@@ -57,9 +58,10 @@ int main()
 
                 fgets(oper, 2, stdin);
                 while (getchar() != '\n');
-                if (oper[0] == '=') { printf("Победа\n"); return 0; }
+                if (oper[0] == '=') { printf("Победа\n"); }
                 else printf("Грязный лжец.");
             }
+            printf("\n\nПопыток на угадывание вашего числа: %d\n\n", counter);
         }
         else printf("Ваше число слишком большое!");
     }
