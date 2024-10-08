@@ -8,7 +8,7 @@ int main()
 {
     int mode;
     setlocale(LC_ALL, "rus");
-    printf("Выберите задачу: ");
+    printf("Выберите задачу:\n1 - НОД\n2 - Сумма чисел\n3 - Найти по сумме чисел\n4 - Wordly, Lab3\n");
     scanf_s("%d", &mode);
     if (mode == 1) {
         system("cls");
@@ -59,8 +59,10 @@ int main()
         while (getchar() != '\n');
         system("cls");
         printf("Введите длину слова: \n");
-        int length, counter = -1, counter1 = 0, counterx2 = -1, bebra = 0, sovpadenia = 0;
+        int length, counter = -1, counter1 = 0, counterx2 = -1, bebra = 0, sovpadenia = 0, popitki;
         scanf_s("%d", &length);
+        printf("Введите количество попыток: \n");
+        scanf_s("%d", &popitki);
         while (getchar() != '\n');
         char c[6], d[6];
         printf("Введите само слово:\n");
@@ -69,28 +71,37 @@ int main()
         system("cls");
         while (sovpadenia != length) {
             sovpadenia = 0;
-            printf("Попытайтесь угадать слово с количеством букв: %d\n", length);
-            fgets(d, length + 1, stdin);
-            while (getchar() != '\n');
+            if (popitki != 0) {
+                printf("Попытайтесь угадать слово с количеством букв: %d\n", length);
+                printf("Осталось попыток: %d\n", popitki);
+                fgets(d, length + 1, stdin);
+                while (getchar() != '\n');
                 counter = -1;
                 counter1 = 0;
-            while (counter < length-1) {
-                counter++;
-                counterx2 = -1;
-                counter1++;
-                bebra = 0;
-                if ((c[counter] == d[counter]) && (c[counter] != '\n')) { printf("%d - совпадение\n", counter1); sovpadenia += 1; bebra = 1; }
-                else {
-                    while (counterx2 < length-1) {
-                        counterx2++;
-                        if (d[counter] == c[counterx2]) { printf("%d - присутствие\n", counter1); bebra = 1; }
+                while (counter < length - 1) {
+                    counter++;
+                    counterx2 = -1;
+                    counter1++;
+                    bebra = 0;
+                    if ((c[counter] == d[counter]) && (c[counter] != '\n')) { printf("%d - совпадение\n", counter1); sovpadenia += 1; bebra = 1; }
+                    else {
+                        while (counterx2 < length - 1) {
+                            counterx2++;
+                            if (d[counter] == c[counterx2]) { printf("%d - присутствие\n", counter1); bebra = 1; break; }
+                        }
                     }
+                    if (bebra == 0) printf("%d - отсутствие\n", counter1);
                 }
-                if (bebra == 0) printf("%d - отсутствие\n", counter1);
+                popitki -= 1;
+
+
+                
             }
+            else {printf("\nПопытки кончились, вы проиграли!\n"); break;}
+            } 
+        if (sovpadenia == length) printf("\nВы угадали!\n");
         }
-        printf("\nВы угадали!\n");
-        }
+    
     else printf("PIPISKA\n");
 }
 
