@@ -104,7 +104,7 @@ int main()
         }
     else if (mode == 5) {
         system("cls");
-        char c[6] = {"\0"}, d[6];
+        char c[8] = {"\0"}, d[8], prov;
         int length, popitki, nageneril, raz, bebra, sovpadenia = 0, counter = -1, counter1 = 0, counterx2 = -1, bebra2 = 0;
         srand(time(NULL));
         printf("Введите длину числа: \n");
@@ -112,6 +112,7 @@ int main()
         printf("Введите количество попыток: \n");
         scanf_s("%d", &popitki);
         c[0] = 48+(1 + (rand() % 9));
+        
         for (int i = 1; i < length; i++) {
             bebra = 0;
             while (bebra == 0) {
@@ -128,37 +129,42 @@ int main()
         }
         while (getchar() != '\n');
         system("cls");
+        puts(c);
         while (sovpadenia != length) {
             sovpadenia = 0;
             if (popitki != 0) {
-                printf("\nПопытайтесь угадать число с количеством цифр: %d\n", length);
+                prov = '\0';
+                for (int i = 0; i < length+3; i++) { d[i] = '\0'; }
+                printf("Попытайтесь угадать число с количеством цифр: %d\n", length);
                 printf("Осталось попыток: %d\n", popitki);
-                fgets(d, length + 1, stdin);
-                while (getchar() != '\n');
-                counter = -1;
-                counter1 = 0;
-                while (counter < length - 1) {
-                    counter++;
-                    counterx2 = -1;
-                    counter1++;
-                    bebra2 = 0;
-                    if ((c[counter] == d[counter]) && (c[counter] != '\n')) { printf("%d - совпадение\n", counter1); sovpadenia += 1; bebra2 = 1; }
-                    else {
-                        while (counterx2 < length - 1) {
-                            counterx2++;
-                            if (d[counter] == c[counterx2]) { printf("%d - присутствие\n", counter1); bebra2 = 1; break; }
+                fgets(d, length + 2, stdin);
+                if (d[length] == '\0' || d[length] == '\n') {
+                    counter = -1;
+                    counter1 = 0;
+                    while (counter < length - 1) {
+                        counter++;
+                        counterx2 = -1;
+                        counter1++;
+                        bebra2 = 0;
+                        if ((c[counter] == d[counter]) && (c[counter] != '\n')) { printf("%d - совпадение\n", counter1); sovpadenia += 1; bebra2 = 1; }
+                        else {
+                            while (counterx2 < length - 1) {
+                                counterx2++;
+                                if (d[counter] == c[counterx2]) { printf("%d - присутствие\n", counter1); bebra2 = 1; break; }
+                            }
                         }
+                        if (bebra2 == 0) printf("%d - отсутствие\n", counter1);
                     }
-                    if (bebra2 == 0) printf("%d - отсутствие\n", counter1);
+                    popitki -= 1;
                 }
-                popitki -= 1;
-
-
+                else { printf("Ваше число слишком биг!\n\n"); while (getchar() != '\n'); }
+                
 
             }
             else { printf("\nПопытки кончились, вы проиграли!\n"); break; }
         }
         if (sovpadenia == length) printf("\nВы угадали!\n");
+        
     }
     else printf("PIPISKA\n");
 }
