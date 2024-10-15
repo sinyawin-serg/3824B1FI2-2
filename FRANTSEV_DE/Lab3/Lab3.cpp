@@ -104,7 +104,7 @@ int main()
         }
     else if (mode == 5) {
         system("cls");
-        char c[8] = {"\0"}, d[8], prov;
+        char c[8] = {"\0"}, d[8];
         int length, popitki, nageneril, raz, bebra, sovpadenia = 0, counter = -1, counter1 = 0, counterx2 = -1, bebra2 = 0;
         srand(time(NULL));
         printf("Введите длину числа: \n");
@@ -133,7 +133,6 @@ int main()
         while (sovpadenia != length) {
             sovpadenia = 0;
             if (popitki != 0) {
-                prov = '\0';
                 for (int i = 0; i < length+3; i++) { d[i] = '\0'; }
                 printf("Попытайтесь угадать число с количеством цифр: %d\n", length);
                 printf("Осталось попыток: %d\n", popitki);
